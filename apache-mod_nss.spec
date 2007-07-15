@@ -3,12 +3,12 @@
 
 Summary:	Provides SSL support using the NSS crypto libraries
 Name:		apache-mod_nss
-Version:	1.0.6
-Release:	%mkrel 3
+Version:	1.0.7
+Release:	%mkrel 1
 License:	Apache License
 Group:		System/Servers
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
-Source0:	http://directory.fedora.redhat.com/sources/mod_nss-%{version}.tar.bz2
+Source0:	http://directory.fedora.redhat.com/sources/mod_nss-%{version}.tar.gz
 Patch1:		mod_nss-1.0.3-gencert_fix.diff
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
@@ -29,20 +29,18 @@ Conflicts:	apache-mod_ssl apache-mod_ssl+distcache
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-An Apache 2.0 module for implementing crypto using the Mozilla NSS
-crypto libraries. This supports SSLv3/TLSv1 including support for
-client certificate authentication. NSS provides web applications
-with a FIPS 140 certified crypto provider and support for a full
-range of PKCS11 devices.
+An Apache 2.0 module for implementing crypto using the Mozilla NSS crypto
+libraries. This supports SSLv3/TLSv1 including support for client certificate
+authentication. NSS provides web applications with a FIPS 140 certified crypto
+provider and support for a full range of PKCS11 devices.
 
-mod_nss is an SSL provider derived from the mod_ssl module for the
-Apache web server that uses the Network Security Services (NSS)
-libraries. We started with mod_ssl and replaced the OpenSSL calls
-with NSS calls. 
+mod_nss is an SSL provider derived from the mod_ssl module for the Apache web
+server that uses the Network Security Services (NSS) libraries. We started with
+mod_ssl and replaced the OpenSSL calls with NSS calls. 
 
-The mod_ssl package was created in April 1998 by Ralf S. Engelschall
-and was originally derived from the Apache-SSL package developed by
-Ben Laurie. It is licensed under the Apache 2.0 license.
+The mod_ssl package was created in April 1998 by Ralf S. Engelschall and was
+originally derived from the Apache-SSL package developed by Ben Laurie. It is
+licensed under the Apache 2.0 license.
 
 %prep
 
@@ -156,5 +154,3 @@ fi
 %attr(0755,root,root) %{_sbindir}/nss_pcache
 %attr(0755,root,root) %{_sbindir}/nss_gencert
 %attr(0755,root,root) %{_libdir}/apache-extramodules/mod_nss.so
-
-
