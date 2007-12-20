@@ -26,6 +26,7 @@ BuildRequires:	libnss-devel >= 2:%{nss_version}
 BuildRequires:	pkgconfig
 BuildRequires:  flex
 Conflicts:	apache-mod_ssl apache-mod_ssl+distcache
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 An Apache 2.0 module for implementing crypto using the Mozilla NSS crypto
