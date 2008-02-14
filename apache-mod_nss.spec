@@ -1,10 +1,10 @@
-%define nss_version 3.11.7
+%define nss_version 3.11.9
 %define nssdir %{_sysconfdir}/pki/nss/apache-mod_nss
 
 Summary:	Provides SSL support using the NSS crypto libraries
 Name:		apache-mod_nss
 Version:	1.0.7
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	Apache License
 Group:		System/Servers
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
