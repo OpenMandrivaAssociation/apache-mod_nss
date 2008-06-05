@@ -59,7 +59,7 @@ if [ -x %{_bindir}/apr-1-config ]; then APR=%{_bindir}/apr-1-config; fi
 
 export CPPFLAGS=`$APR --cppflags`
 
-%configure2_5x \
+%configure2_5x --localstatedir=/var/lib \
     --with-apr-config=$APR \
     --with-apxs=%{_sbindir}/apxs \
     --with-nspr-inc=`pkg-config --cflags nspr | sed 's/^\-I//'` \
