@@ -1,16 +1,15 @@
-%define nss_version 3.11.9
+%define nss_version 3.12
 %define nssdir %{_sysconfdir}/pki/nss/apache-mod_nss
 
 Summary:	Provides SSL support using the NSS crypto libraries
 Name:		apache-mod_nss
-Version:	1.0.7
-Release:	%mkrel 8
+Version:	1.0.8
+Release:	%mkrel 1
 License:	Apache License
 Group:		System/Servers
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
 Source0:	http://directory.fedora.redhat.com/sources/mod_nss-%{version}.tar.gz
 Patch1:		mod_nss-1.0.3-gencert_fix.diff
-Patch2: mod_nss-proxy.patch
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -47,7 +46,6 @@ licensed under the Apache 2.0 license.
 
 %setup -q -n mod_nss-%{version}
 %patch1 -p0
-%patch2 -p1 -b .proxy
 
 %build
 export WANT_AUTOCONF_2_5="1"
@@ -70,7 +68,7 @@ export CPPFLAGS=`$APR --cppflags`
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_sbindir}
 install -d %{buildroot}%{_libdir}/apache-extramodules
@@ -146,7 +144,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
