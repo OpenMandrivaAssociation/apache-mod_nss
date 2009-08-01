@@ -4,7 +4,7 @@
 Summary:	Provides SSL support using the NSS crypto libraries
 Name:		apache-mod_nss
 Version:	1.0.8
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	Apache License
 Group:		System/Servers
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
