@@ -4,13 +4,14 @@
 Summary:	Provides SSL support using the NSS crypto libraries
 Name:		apache-mod_nss
 Version:	1.0.8
-Release:	%mkrel 10
+Release:	%mkrel 11
 License:	Apache License
 Group:		System/Servers
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
 Source0:	http://directory.fedora.redhat.com/sources/mod_nss-%{version}.tar.gz
 Patch1:		mod_nss-1.0.3-gencert_fix.diff
 Patch2:		mod_nss-wouldblock.patch
+Patch3:		mod_nss-1.0.8-negotiate.diff
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -22,11 +23,11 @@ Requires:	apache-conf >= 2.2.0
 Requires:	apache >= 2.2.0
 BuildRequires:	apache-devel >= 2.2.0
 BuildRequires:	automake1.7
-BuildRequires:	libnspr-devel >= 2:4.6.5
-BuildRequires:	libnss-devel >= 2:%{nss_version}
+BuildRequires:	nspr-devel >= 2:4.8.4
+BuildRequires:	nss-devel >= 2:3.12.6
 BuildRequires:	pkgconfig
 BuildRequires:  flex
-Conflicts:	apache-mod_ssl apache-mod_ssl+distcache
+Conflicts:	apache-mod_ssl
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -48,19 +49,17 @@ licensed under the Apache 2.0 license.
 %setup -q -n mod_nss-%{version}
 %patch1 -p0
 %patch2 -p1 -b .wouldblock
+%patch3 -p1 -b .negotiate
 
 %build
 export WANT_AUTOCONF_2_5="1"
 rm -rf autom*cache configure
 libtoolize --copy --force; aclocal-1.7; autoconf; automake-1.7 --foreign --add-missing --copy
 
-if [ -x %{_bindir}/apr-config ]; then APR=%{_bindir}/apr-config; fi
-if [ -x %{_bindir}/apr-1-config ]; then APR=%{_bindir}/apr-1-config; fi
-
-export CPPFLAGS=`$APR --cppflags`
+export CPPFLAGS=`%{_bindir}/apr-1-config --cppflags`
 
 %configure2_5x --localstatedir=/var/lib \
-    --with-apr-config=$APR \
+    --with-apr-config=%{_bindir}/apr-1-config \
     --with-apxs=%{_sbindir}/apxs \
     --with-nspr-inc=`pkg-config --cflags nspr | sed 's/^\-I//'` \
     --with-nspr-lib=%{_libdir} \
