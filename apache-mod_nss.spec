@@ -4,7 +4,7 @@
 Summary:	Provides SSL support using the NSS crypto libraries
 Name:		apache-mod_nss
 Version:	1.0.8
-Release:	%mkrel 13
+Release:	%mkrel 14
 License:	Apache License
 Group:		System/Servers
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
@@ -22,7 +22,7 @@ Requires:	openssl
 Requires:	apache-conf >= 2.2.0
 Requires:	apache >= 2.2.0
 BuildRequires:	apache-devel >= 2.2.0
-BuildRequires:	automake1.7
+BuildRequires:	automake
 BuildRequires:	nspr-devel >= 2:4.8.4
 BuildRequires:	nss-devel >= 2:3.12.6
 BuildRequires:	pkgconfig
@@ -54,7 +54,7 @@ licensed under the Apache 2.0 license.
 %build
 export WANT_AUTOCONF_2_5="1"
 rm -rf autom*cache configure
-libtoolize --copy --force; aclocal-1.7; autoconf; automake-1.7 --foreign --add-missing --copy
+libtoolize --copy --force; aclocal; autoconf; automake --foreign --add-missing --copy
 
 export CPPFLAGS=`%{_bindir}/apr-1-config --cppflags`
 
