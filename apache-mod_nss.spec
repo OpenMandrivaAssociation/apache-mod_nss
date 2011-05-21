@@ -4,14 +4,19 @@
 Summary:	Provides SSL support using the NSS crypto libraries
 Name:		apache-mod_nss
 Version:	1.0.8
-Release:	%mkrel 14
+Release:	%mkrel 15
 License:	Apache License
 Group:		System/Servers
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
 Source0:	http://directory.fedora.redhat.com/sources/mod_nss-%{version}.tar.gz
-Patch1:		mod_nss-1.0.3-gencert_fix.diff
-Patch2:		mod_nss-wouldblock.patch
-Patch3:		mod_nss-1.0.8-negotiate.diff
+Patch1:		mod_nss-conf.patch
+Patch2:		mod_nss-gencert.patch
+Patch3:		mod_nss-wouldblock.patch
+Patch4:		mod_nss-negotiate.patch
+Patch5:		mod_nss-reverseproxy.patch
+Patch6:		mod_nss-pcachesignal.h
+Patch7:		mod_nss-reseterror.patch
+Patch8:		mod_nss-lockpcache.patch
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -47,9 +52,18 @@ licensed under the Apache 2.0 license.
 %prep
 
 %setup -q -n mod_nss-%{version}
-%patch1 -p0
-%patch2 -p1 -b .wouldblock
-%patch3 -p1 -b .negotiate
+
+%patch1 -p1 -b .conf
+%patch2 -p1 -b .gencert
+%patch3 -p1 -b .wouldblock
+%patch4 -p1 -b .negotiate
+%patch5 -p1 -b .reverseproxy
+%patch6 -p1 -b .pcachesignal.h
+%patch7 -p1 -b .reseterror
+%patch8 -p1 -b .lockpcache
+
+# Touch expression parser sources to prevent regenerating it
+touch nss_expr_*.[chyl]
 
 %build
 export WANT_AUTOCONF_2_5="1"
