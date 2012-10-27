@@ -4,7 +4,7 @@
 Summary:	Provides SSL support using the NSS crypto libraries
 Name:		apache-mod_nss
 Version:	1.0.8
-Release:	%mkrel 17
+Release:	%mkrel 18
 License:	Apache License
 Group:		System/Servers
 URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
@@ -17,6 +17,7 @@ Patch5:		mod_nss-reverseproxy.patch
 Patch6:		mod_nss-pcachesignal.h
 Patch7:		mod_nss-reseterror.patch
 Patch8:		mod_nss-lockpcache.patch
+Patch9:		mod_nss-httpd24.patch
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires(pre):	apache-conf >= 2.2.0
@@ -33,7 +34,6 @@ BuildRequires:	nss-devel >= 2:3.12.6
 BuildRequires:	pkgconfig
 BuildRequires:  flex
 Conflicts:	apache-mod_ssl
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 An Apache 2.0 module for implementing crypto using the Mozilla NSS crypto
@@ -61,6 +61,7 @@ licensed under the Apache 2.0 license.
 %patch6 -p1 -b .pcachesignal.h
 %patch7 -p1 -b .reseterror
 %patch8 -p1 -b .lockpcache
+%patch9 -p1 -b .mod_nss-httpd24
 
 # Touch expression parser sources to prevent regenerating it
 touch nss_expr_*.[chyl]
@@ -74,7 +75,7 @@ export CPPFLAGS=`%{_bindir}/apr-1-config --cppflags`
 
 %configure2_5x --localstatedir=/var/lib \
     --with-apr-config=%{_bindir}/apr-1-config \
-    --with-apxs=%{_sbindir}/apxs \
+    --with-apxs=%{_bindir}/apxs \
     --with-nspr-inc=`pkg-config --cflags nspr | sed 's/^\-I//'` \
     --with-nspr-lib=%{_libdir} \
     --with-nss-inc=`pkg-config --cflags nss | awk '{ print $1}' | sed 's/^\-I//'` \
