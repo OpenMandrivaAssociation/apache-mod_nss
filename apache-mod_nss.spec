@@ -7,7 +7,7 @@ Version:	1.0.8
 Release:	%mkrel 18
 License:	Apache License
 Group:		System/Servers
-URL:		http://directory.fedora.redhat.com/wiki/Mod_nss
+URL:		https://directory.fedora.redhat.com/wiki/Mod_nss
 Source0:	http://directory.fedora.redhat.com/sources/mod_nss-%{version}.tar.gz
 Patch1:		mod_nss-conf.patch
 Patch2:		mod_nss-gencert.patch
